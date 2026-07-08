@@ -51,7 +51,6 @@ public class ManutencaoRequestDTO {
         this.descricaoFalha = descricaoFalha;
     }
     
-    // Getters and Setters
 
     
     
