@@ -1,99 +1,131 @@
 /* =========================================
-   Página: Quem Somos
+   Página: Quem Somos (Layout Dividido)
    ========================================= */
 
 .quem-somos-page {
-  /* Deixei o max-width um pouco menor (900px) para que os cards 
-     fiquem com aquele aspecto mais retangular e alongado no centro da tela */
-  max-width: 900px; 
+  max-width: 1300px; /* Aumentei um pouco para caber a imagem maior */
   margin: 0 auto;
-  padding: 30px;
+  
+  /* PADDING ALTERADO: 40px em cima/embaixo, 30px na esquerda, e 0 na DIREITA 
+     Isso faz a imagem colar no canto direito do container */
+  padding: 40px 0 40px 30px; 
   background-color: #f4f7f6; 
   
-  /* O segredo para empilhar um embaixo do outro: */
+  /* NOVA PROPORÇÃO: Textos ficam com ~40% (0.7fr) e Imagem com ~60% (1.3fr) */
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr; 
+  gap: 40px;
+  align-items: start; 
+}
+
+/* --- Coluna da Esquerda (Segura os blocos) --- */
+.quem-somos-textos {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* Espaçamento exato entre a introdução e cada card */
+  gap: 20px; /* Reduzi o espaço entre os cards */
 }
 
 /* --- Seção de Introdução (Hero) --- */
 .quem-somos-intro {
   background-color: #134074;
   color: white;
-  padding: 40px 20px;
+  padding: 30px 20px; /* Caixas menores */
   border-radius: 8px;
-  text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-bottom: 15px; /* Dá um respiro extra antes de começar os cards */
+  text-align: left; 
 }
 
 .quem-somos-intro h1 {
   color: #ffffff;
-  margin: 0 0 15px 0;
-  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  font-size: 1.8rem; /* Fonte menor */
   font-weight: bold;
 }
 
 .quem-somos-intro p {
   color: #ffffff;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 750px;
+  margin: 0; 
+  font-size: 1rem; /* Fonte menor */
+  line-height: 1.5;
   opacity: 0.9;
 }
 
 /* =========================================
-   Cards Alongados Verticais
+   Cards Verticais da Esquerda (Mais compactos)
    ========================================= */
 .quem-somos-card {
   background-color: #ffffff;
-  
-  /* Padding maior em cima e embaixo (40px) para dar o efeito "alongado" */
-  padding: 40px 30px; 
+  padding: 25px 20px; /* Caixas menores */
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   
-  /* Bordas iguas às da Home, com a faixa verde na esquerda */
   border: 1px solid #e0e0e0;
-  border-left: 6px solid #2a9d8f; 
+  border-left: 5px solid #2a9d8f; /* Linha um pouco mais fina */
   
-  text-align: center; /* Centraliza os textos dentro da caixa */
+  text-align: left; 
   transition: transform 0.2s ease;
 }
 
 .quem-somos-card:hover {
-  transform: translateY(-3px); /* Levanta sutilmente ao passar o mouse */
+  transform: translateY(-3px); 
 }
 
 .quem-somos-card h2 {
-  margin: 0 0 15px 0;
-  color: #0b2545; /* Azul corporativo para o título */
-  font-size: 1.6rem;
+  margin: 0 0 10px 0;
+  color: #0b2545; 
+  font-size: 1.3rem; /* Título menor */
   font-weight: 700;
 }
 
 .quem-somos-card p {
   color: #555555;
-  line-height: 1.7;
-  font-size: 1.05rem;
-  margin: 0 auto;
-  max-width: 750px; /* Centraliza o parágrafo e não deixa a linha de texto infinita */
+  line-height: 1.6;
+  font-size: 0.95rem; /* Texto menor */
+  margin: 0; 
 }
 
 /* =========================================
-   Responsividade (Telas Menores)
+   Coluna da Direita (Imagem Grande e Fixa)
    ========================================= */
-@media (max-width: 768px) {
+.quem-somos-imagem {
+  position: sticky; /* Faz a imagem acompanhar o scroll da página */
+  top: 20px; /* Distância do topo da tela ao rolar */
+  height: calc(100vh - 40px); /* Faz a imagem ocupar quase toda a altura da tela */
+}
+
+.img-destaque {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cobre todo o espaço sem achatar */
+  
+  /* Arredonda apenas os cantos esquerdos, já que a direita está "colada" na tela */
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  
+  box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra focada na esquerda */
+}
+
+/* =========================================
+   Responsividade (Para Telas Menores e Celulares)
+   ========================================= */
+@media (max-width: 992px) {
   .quem-somos-page {
+    /* No celular, volta a ser uma coluna só e restaura o padding da direita */
+    grid-template-columns: 1fr; 
     padding: 20px 15px;
   }
   
-  .quem-somos-intro h1 {
-    font-size: 1.8rem;
+  .quem-somos-imagem {
+    position: relative; 
+    top: 0;
+    height: 400px; /* Altura fixa no celular para não bugar */
+    order: -1; 
   }
 
-  .quem-somos-card {
-    padding: 25px 20px; /* Reduz um pouco o estofamento no celular */
+  .img-destaque {
+    /* Restaura o arredondamento de todos os lados no celular */
+    border-radius: 8px;
   }
 }

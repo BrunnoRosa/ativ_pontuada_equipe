@@ -1,54 +1,57 @@
 import './style.css'
-// IMPORTANTE: Importe a imagem aqui no topo. 
-// Ajuste o caminho ('./img-quemsomos.jpg') se ela estiver em outra pasta.
-import imagemQuemSomos from './img-quemsomos.jpg'
+import imagemQuemSomos from '../../assets/img-quemsomos.jpg'
 
 export default function QuemSomos() {
   return (
     <main className='quem-somos-page'>
-      <section className='quem-somos-intro'>
-        <h1>Quem Somos</h1>
-        <p>
-          Somos uma empresa dedicada à segurança offshore e à proteção do ecossistema marinho.
-          Nossa missão é oferecer soluções confiáveis e sustentáveis que garantam operações seguras
-          em ambientes marítimos, sempre com respeito ao meio ambiente.
-        </p>
+      
+      {/* === COLUNA DA ESQUERDA: Esta div é OBRIGATÓRIA para empacotar os textos === */}
+      <div className="quem-somos-textos">
         
-        {/* A IMAGEM FOI ADICIONADA AQUI */}
+ <section className='quem-somos-intro'>
+          <h1>Quem Somos</h1>
+          <p>
+            Oferecemos soluções de segurança offshore confiáveis e sustentáveis, unindo 
+            excelência operacional e respeito absoluto ao ecossistema marinho.
+          </p>
+        </section>
+
+        <section className='quem-somos-card'>
+          <h2>Missão</h2>
+          <p>
+            Promover a excelência em segurança offshore, protegendo vidas, equipamentos 
+            e os oceanos através de inovação, integridade e responsabilidade.
+          </p>
+        </section>
+
+        <section className='quem-somos-card'>
+          <h2>Foco em Segurança</h2>
+          <p>
+            Utilizamos processos rigorosos, treinamento especializado e alta tecnologia 
+            para garantir os mais altos padrões de segurança e prevenção de incidentes.
+          </p>
+        </section>
+
+        <section className='quem-somos-card'>
+          <h2>Preservação Ambiental</h2>
+          <p>
+            Aplicamos políticas rígidas de gestão, monitoramento contínuo e controle 
+            de resíduos para proteger a biodiversidade marinha.
+          </p>
+        </section>
+        
+      </div>
+      {/* === FIM DA COLUNA DA ESQUERDA === */}
+
+      {/* === COLUNA DA DIREITA: Aqui fica a imagem === */}
+      <div className="quem-somos-imagem">
         <img 
           src={imagemQuemSomos} 
           alt="Operações da Atlantic Offshore Energy" 
           className="img-destaque" 
         />
-        
-      </section>
+      </div>
 
-      <section className='quem-somos-card'>
-        <h2>Missão</h2>
-        <p>
-          Nossa missão é promover a excelência na gestão de segurança offshore, reduzindo riscos e
-          protegendo vidas, equipamentos e o oceano. Buscamos inovação contínua para antecipar
-          desafios e apoiar operações marítimas com integridade e responsabilidade.
-        </p>
-      </section>
-
-      <section className='quem-somos-card'>
-        <h2>Foco em Segurança Offshore</h2>
-        <p>
-          Trabalhamos com processos rigorosos, treinamento especializado e tecnologias avançadas para
-          garantir que cada operação offshore siga os mais altos padrões de segurança. Cada projeto é
-          planejado com atenção aos detalhes e à prevenção de incidentes.
-        </p>
-      </section>
-
-      <section className='quem-somos-card'>
-        <h2>Preservação do Ecossistema Marinho</h2>
-        <p>
-          Adotamos políticas de preservação ambiental que minimizam impactos no ambiente marinho.
-          Isso inclui ações de monitoramento contínuo, gestão de resíduos e práticas que protegem a
-          biodiversidade e a saúde dos oceanos.
-        </p>
-      </section>
     </main>
   )
 }
