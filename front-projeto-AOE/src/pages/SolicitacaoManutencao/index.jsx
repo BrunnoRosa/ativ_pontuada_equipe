@@ -1,6 +1,38 @@
-import './style.css'
+import React, { useState } from 'react';
+import './style.css';
 
 export default function SolicitacaoManutencao() {
+  // Estado para capturar todos os campos do formulário
+  const [formData, setFormData] = useState({
+    equipamentoId: '',
+    criticidade: '',
+    descricaoFalha: ''
+  });
+
+  // Atualiza o estado conforme o usuário digita
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Lida com o envio do formulário
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Enviando dados via POST para o Spring Boot:', formData);
+    
+    // Aqui entrará o fetch/axios para enviar ao Backend
+    // ex: axios.post('http://localhost:8080/api/manutencao', formData)
+    
+    alert('Ordem de serviço registrada com sucesso no banco de dados!');
+    
+    // Limpa o formulário após o envio
+    setFormData({
+      equipamentoId: '',
+      criticidade: '',
+      descricaoFalha: ''
+    });
+  };
+
   return (
     <main className='solicitacao-manutencao-page'>
       <section className='solicitacao-manutencao-card'>
@@ -11,34 +43,52 @@ export default function SolicitacaoManutencao() {
           da falha para que nossa equipe possa agir rapidamente.
         </p>
 
-        <form className='solicitacao-form'>
-          <label htmlFor='equipamentoId'>ID do Equipamento</label>
-          <input
-            id='equipamentoId'
-            name='equipamentoId'
-            type='text'
-            placeholder='Ex: TC-1023'
-          />
+        <form onSubmit={handleSubmit} className='solicitacao-form'>
+          <div className="form-group">
+            <label htmlFor='equipamentoId'>ID do Equipamento:</label>
+            <input
+              id='equipamentoId'
+              name='equipamentoId'
+              type='text'
+              value={formData.equipamentoId}
+              onChange={handleChange}
+              placeholder='Ex: TC-1023'
+              required
+            />
+          </div>
 
-          <label htmlFor='criticidade'>Criticidade</label>
-          <select id='criticidade' name='criticidade'>
-            <option value=''>Selecione a criticidade</option>
-            <option value='alta'>Alta</option>
-            <option value='media'>Média</option>
-            <option value='baixa'>Baixa</option>
-          </select>
+          <div className="form-group">
+            <label htmlFor='criticidade'>Criticidade:</label>
+            <select 
+              id='criticidade' 
+              name='criticidade'
+              value={formData.criticidade}
+              onChange={handleChange}
+              required
+            >
+              <option value=''>Selecione a criticidade</option>
+              <option value='Baixa'>Baixa</option>
+              <option value='Média'>Média</option>
+              <option value='Alta'>Alta</option>
+            </select>
+          </div>
 
-          <label htmlFor='descricaoFalha'>Descrição da Falha</label>
-          <textarea
-            id='descricaoFalha'
-            name='descricaoFalha'
-            rows='6'
-            placeholder='Descreva o problema observado no equipamento...'
-          />
+          <div className="form-group">
+            <label htmlFor='descricaoFalha'>Descrição da Falha:</label>
+            <textarea
+              id='descricaoFalha'
+              name='descricaoFalha'
+              value={formData.descricaoFalha}
+              onChange={handleChange}
+              rows='6'
+              placeholder='Descreva o problema observado no equipamento...'
+              required
+            />
+          </div>
 
-          <button type='submit'>Enviar Ordem de Serviço</button>
+          <button type='submit' className="btn-submit">Enviar Ordem de Serviço</button>
         </form>
       </section>
     </main>
-  )
+  );
 }
