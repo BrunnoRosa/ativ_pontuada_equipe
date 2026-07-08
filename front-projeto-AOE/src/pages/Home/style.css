@@ -6,6 +6,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
+  padding-bottom: 40px; /* Garante que a página tenha um espaço no final para não brigar com o footer */
   
   /* Garante o fundo claro geral da página */
   background-color: #f4f7f6; 
@@ -61,9 +62,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   
-  /* --- ALTERAÇÃO AQUI: Linha cinza fina ao redor --- */
+  /* Linha cinza fina ao redor */
   border: 1px solid #e0e0e0; 
-  
   border-left: 5px solid #134074; /* Mantém o destaque grosso na esquerda */
   text-align: center;
 }
@@ -96,21 +96,28 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 30px;
+  text-align: center;
 }
 
 .home-page .map-section h3 {
-  margin: 10px;
+  margin: 10px 10px 15px 10px;
   color: #0b2545;
 }
 
-.home-page .map-placeholder {
-  background-color: #eef4f8;
-  border: 2px dashed #8da9c4;
-  height: 300px;
+/* --- Wrapper da Imagem (Opção 3) --- */
+.map-wrapper {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 0; /* Zeramos o padding para tirar as bordas brancas */
+  overflow: hidden; /* Mantém os cantos arredondados sem deixar a imagem quadrada passar */
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: #555555;
-  font-weight: 500;
-  border-radius: 6px;
+  align-items: center;
+}
+
+.mapa-estatico {
+  width: 60%; /* Agora a imagem vai ocupar 100% da largura disponível */
+  height: auto; /* A altura se ajusta automaticamente para não distorcer o mapa */
+  display: block;
 }

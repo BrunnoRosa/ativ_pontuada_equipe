@@ -67,7 +67,7 @@ export default function RegistroIncidentes() {
       await new Promise(resolve => setTimeout(resolve, 800));
       
       // Trocando o alert() pelo Toast de Sucesso
-      toast.success('Incidente registrado com sucesso no banco de dados (MySQL)!');
+      toast.success('Incidente registrado com sucesso');
       
       // Limpa o formulário após o envio
       setFormData({
