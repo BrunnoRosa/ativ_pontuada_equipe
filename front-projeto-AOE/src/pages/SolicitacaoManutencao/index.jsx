@@ -52,11 +52,18 @@ export default function SolicitacaoManutencao() {
     });
 
     }catch(error){
-      console.error('Erro ao conectar com o Back-End:', error);
-
-      const mensagemErro = error.response?.data?.message || 'Falha ao conectar com o servidor.';
-
-      alert(`Erro ao salvar a ordem de serviço: ${mensagemErro}`);
+      // Se o servidor respondeu com status (400, 404, 500, etc.)
+  if (error.response) {
+    alert(`Erro do Servidor (${error.response.status}): ${error.response.data?.message || 'Dados inválidos'}`);
+  } 
+  // Se a requisição foi feita mas NENHUMA resposta voltou (Servidor fora ou CORS)
+  else if (error.request) {
+    alert('Não foi possível alcançar o servidor. Verifique se o Back-End está rodando na porta 8080.');
+  } 
+  // Outros erros de código
+  else {
+    alert(`Erro na requisição: ${error.message}`);
+  }
     }finally{
       setLoading(false);
     }

@@ -20,13 +20,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                authorizationManagerRequestMatcherRegistry.anyRequest().permitAll());
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .csrf(AbstractHttpConfigurer::disable) // Desabilita CSRF para testes com API REST
+        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
 
-        return http.build();
+    return http.build();
     }
-
     //Inserindo o CORS ao BackEnd para receber Requisições do FrontEnd
 
     @Bean
@@ -54,4 +55,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    
 }
