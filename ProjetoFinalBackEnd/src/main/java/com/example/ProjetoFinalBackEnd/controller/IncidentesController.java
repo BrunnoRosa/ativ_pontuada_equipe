@@ -1,6 +1,5 @@
 package com.example.ProjetoFinalBackEnd.controller;
 
-
 import com.example.ProjetoFinalBackEnd.dto.IncidentesRequestDTO;
 import com.example.ProjetoFinalBackEnd.dto.IncidentesResponseDTO;
 import com.example.ProjetoFinalBackEnd.service.IncidentesService;
@@ -11,36 +10,41 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("api/incidentes")
-//@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/incidentes")
 public class IncidentesController {
 
     @Autowired
     private IncidentesService service;
 
     @GetMapping
-    public ResponseEntity<List<IncidentesResponseDTO>> listar(){
-        return ResponseEntity.status(HttpStatus.OK).body(service.listar());
+    public ResponseEntity<List<IncidentesResponseDTO>> listarTodos() {
+        List<IncidentesResponseDTO> lista = service.listar();
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<IncidentesResponseDTO> buscarPorId(@PathVariable Long id) {
+        IncidentesResponseDTO dto = service.buscarPorId(id);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> salvar(@RequestBody @Valid IncidentesRequestDTO salvarDTO){
-        service.salvar(salvarDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("Mensagem", "Registro Realizado com Sucesso. ✅"));
+    public ResponseEntity<IncidentesResponseDTO> criar(@RequestBody @Valid IncidentesRequestDTO dto) {
+        IncidentesResponseDTO novoIncidente = service.salvar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoIncidente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> atualizar(@PathVariable Long id, @RequestBody @Valid IncidentesRequestDTO salvarDTO){
-        service.atualizar(id, salvarDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of("Mensagem", "Registro Atualizado com Sucesso. ✅"));
+    public ResponseEntity<IncidentesResponseDTO> atualizar(@PathVariable Long id, @RequestBody @Valid IncidentesRequestDTO dto) {
+        IncidentesResponseDTO incidenteAtualizado = service.atualizar(id, dto);
+        return ResponseEntity.ok(incidenteAtualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of("Mensagem", "Registro deletado com Sucesso. ✅"));
+        return ResponseEntity.noContent().build();
     }
 }
