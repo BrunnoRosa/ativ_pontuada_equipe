@@ -193,3 +193,16 @@ html, body {
     border-right-color: var(--border);
   }
 }
+
+#root {
+  width: 100%;             /* Mudado de 1126px para 100% para ocupar a tela toda */
+  max-width: 100%;
+  margin: 0;               /* Remove a margem lateral automática */
+  text-align: center;
+  /* border-inline: 1px solid var(--border); <- Remova ou comente esta linha se não quiser linhas limitando o layout nas laterais */
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 1; 
+}
