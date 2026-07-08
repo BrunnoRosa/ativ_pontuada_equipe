@@ -36,6 +36,7 @@ html {
   box-sizing: border-box;
 }
 
+/* Modifique o seu body adicionando overflow-x: hidden */
 body {
   margin: 0;
   padding: 0;
@@ -43,17 +44,19 @@ body {
   min-height: 100vh;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   
-  /* Agora o body puxa as cores automáticas (claro ou escuro) */
   background-color: var(--bg);
   color: var(--text);
   
   display: flex;
   flex-direction: column;
+  overflow-x: hidden; /* <--- ADICIONE ISSO AQUI */
 }
 
+/* Modifique o seu #root trocando width por max-width/overflow */
 #root {
-  width: 100%;
+  width: 100vw;       /* <--- MUDE DE 100% PARA 100vw */
   max-width: 100%;
+  overflow-x: hidden; /* <--- ADICIONE ISSO AQUI */
   margin: 0;
   text-align: center;
   min-height: 100vh;

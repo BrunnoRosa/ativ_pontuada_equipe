@@ -1,4 +1,7 @@
 import './style.css'
+// IMPORTANTE: Importe a imagem aqui no topo. 
+// Ajuste o caminho ('./img-quemsomos.jpg') se ela estiver em outra pasta.
+import imagemQuemSomos from './img-quemsomos.jpg'
 
 export default function QuemSomos() {
   return (
@@ -10,6 +13,14 @@ export default function QuemSomos() {
           Nossa missão é oferecer soluções confiáveis e sustentáveis que garantam operações seguras
           em ambientes marítimos, sempre com respeito ao meio ambiente.
         </p>
+        
+        {/* A IMAGEM FOI ADICIONADA AQUI */}
+        <img 
+          src={imagemQuemSomos} 
+          alt="Operações da Atlantic Offshore Energy" 
+          className="img-destaque" 
+        />
+        
       </section>
 
       <section className='quem-somos-card'>

@@ -51,15 +51,20 @@
     grid-template-columns: 1fr; 
   }
 }
+
 /* O prefixo ".home-page" aumenta a força do CSS, 
-  dispensando o uso do !important 
+   dispensando o uso do !important 
 */
 .home-page .card {
   background-color: #ffffff;
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-left: 5px solid #134074;
+  
+  /* --- ALTERAÇÃO AQUI: Linha cinza fina ao redor --- */
+  border: 1px solid #e0e0e0; 
+  
+  border-left: 5px solid #134074; /* Mantém o destaque grosso na esquerda */
   text-align: center;
 }
 

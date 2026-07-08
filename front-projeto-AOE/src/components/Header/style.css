@@ -13,15 +13,16 @@
 }
 
 /* =========================================
-   1. Aumente o limite da caixa invisível
+   1. Ajuste na caixa invisível (Limita o tamanho à tela)
    ========================================= */
 .header-container {
-  max-width: 1600px; /* AUMENTE AQUI! Teste 1400px, 1600px ou 95% */
+  max-width: 100%; /* Mudado para 100% para respeitar as bordas da tela */
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  box-sizing: border-box; /* Garante que o padding não aumente o tamanho final */
 }
 
 /* =========================================
@@ -32,33 +33,37 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
-  flex-shrink: 0; /* ADICIONE ISSO: Proíbe o menu de espremer a logo */
+  flex-shrink: 0; /* Proíbe o menu de espremer a logo */
 }
 
 .logo h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #ffffff;
   margin: 2px;
   font-weight: 700;
   letter-spacing: 0.0px;
-  white-space: nowrap; /* ADICIONE ISSO: Força o nome a ficar em uma linha */
+  white-space: nowrap; /* Força o nome a ficar em uma linha */
 }
 
 .subtitle {
-  font-size: 0.60rem;
+  font-size: 0.65rem;
   color: #ffffff;
-  background-color: #bdde2c; 
+  background-color: #a4c21f; 
   padding: 3px 8px;
-  border-radius: 15px;
+  border-radius: 18px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  white-space: nowrap; /* ADICIONE ISSO: Força o Portal Corporativo a ficar em uma linha */
+  white-space: nowrap; /* Força o Portal Corporativo a ficar em uma linha */
 }
 
 /* =========================================
    Menu de Navegação
    ========================================= */
+.nav-menu {
+  max-width: 100%; /* Garante que o menu ocupe apenas o espaço disponível */
+}
+
 .nav-menu ul {
   list-style: none;
   display: flex;
@@ -66,12 +71,16 @@
   gap: 5px; 
   margin: 0;
   padding: 0;
+  
+  /* --- AJUSTES QUE RESOLVEM O SEU PROBLEMA --- */
+  flex-wrap: wrap;           /* Faz os botões irem para a linha de baixo se faltar espaço */
+  justify-content: flex-end; /* Mantém os botões alinhados à direita */
 }
 
 .nav-menu a {
   color: #eef4f8;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-weight: 500;
   padding: 8px 16px; 
   border: 1px solid rgba(255, 255, 255, 0.2); 
