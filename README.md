@@ -1,4 +1,4 @@
-# ativ_pontuada_equipe
+# Ativ_pontuada_equipe
 Atividade Pontuada Final, será realizada em equipe de 5 integrantes.
 
 ---
@@ -70,7 +70,7 @@ ativ_pontuada_equipe/
                                 #
 ```
 ---
-## Dependências
+## Como Subir o Sistema
 
 ...
 
