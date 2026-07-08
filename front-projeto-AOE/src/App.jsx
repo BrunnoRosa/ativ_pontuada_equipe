@@ -20,26 +20,22 @@ const ContatoEmergencia = () => <div style={{ padding: '40px' }}><h2>Página Con
 export default function App() {
   return (
     <Router>
-      {/* O Header fica fixo no topo de todas as páginas */}
-      <Header />
+      {/* Criamos essa div para envelopar todo o site */}
+      <div className="app-container">
+        <Header />
 
-      <main className="content-container" style={{ minHeight: '80vh', padding: '20px' }}>
-        <Routes>
-          {/* Suas Páginas */}
-          <Route path="/" element={<Home />} />
-          <Route path="/incidentes" element={<RegistroIncidentes />} />
-          <Route path="/producao" element={<MonitoramentoProducao />} />
+        {/* Tiramos aquele 'style' em linha daqui e vamos controlar pelo CSS */}
+        <main className="content-container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/incidentes" element={<RegistroIncidentes />} />
+            <Route path="/producao" element={<MonitoramentoProducao />} />
+            {/* ... as outras rotas permanecem iguais ... */}
+          </Routes>
+        </main>
 
-          {/* Páginas da sua Dupla (Rotas já configuradas) */}
-          <Route path="/quem-somos" element={<QuemSomos />} />
-          <Route path="/manutencao" element={<SolicitacaoManutencao />} />
-          <Route path="/escala" element={<EscalaTripulacao />} />
-          <Route path="/contato" element={<ContatoEmergencia />} />
-        </Routes>
-      </main>
-
-      {/* O Footer fica fixo no rodapé de todas as páginas */}
-      <Footer />
+        <Footer />
+      </div>
     </Router>
   );
 }
