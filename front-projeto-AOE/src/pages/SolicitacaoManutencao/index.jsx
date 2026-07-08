@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './style.css'; // Certifique-se de que o CSS abaixo esteja neste arquivo
 
+//Importando o ajuste do caminho relativo da pasta services conforme a estrutura do Front
+import { criarOrdemServico } from '../../services';
+
 export default function SolicitacaoManutencao() {
   // Estado para capturar todos os campos do formulário
   const [formData, setFormData] = useState({
@@ -8,6 +11,8 @@ export default function SolicitacaoManutencao() {
     criticidade: '',
     descricaoFalha: ''
   });
+
+  const [loading, setLoading] = useState(false); //feat:Inserindo "loading" para os carregamentos do site
 
   // Atualiza o estado conforme o usuário digita
   const handleChange = (e) => {
@@ -18,21 +23,44 @@ export default function SolicitacaoManutencao() {
   };
 
   // Lida com o envio do formulário
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Enviando dados via POST para o Spring Boot:', formData);
     
     // Aqui entrará o fetch/axios para enviar ao Backend
     // ex: axios.post('http://localhost:8080/api/manutencao', formData)
-    
-    alert('Ordem de serviço registrada com sucesso no banco de dados!');
-    
-    // Limpa o formulário após o envio
+
+    setLoading(true);
+
+    //feat:inserindo a chamada para o Back-End
+
+    try{
+      //Chamada assíncrona ao Back-End
+
+      const respostaBack = await criarOrdemServico(formData);
+
+      console.log('Resposta do Spring Boot:', respostaBack);
+
+
+      alert(`Ordem de serviço n° ${respostaBack.id || ''} registrada com sucesso no banco de dados!`);
+
+      // Limpa o formulário após o envio
     setFormData({
       equipamentoId: '',
       criticidade: '',
       descricaoFalha: ''
     });
+
+    }catch(error){
+      console.error('Erro ao conectar com o Back-End:', error);
+
+      const mensagemErro = error.response?.data?.message || 'Falha ao conectar com o servidor.';
+
+      alert(`Erro ao salvar a ordem de serviço: ${mensagemErro}`);
+    }finally{
+      setLoading(false);
+    }
+    
   };
 
   return (
@@ -69,9 +97,10 @@ export default function SolicitacaoManutencao() {
               required
             >
               <option value=''>Selecione a criticidade</option>
-              <option value='Baixa'>Baixa</option>
-              <option value='Média'>Média</option>
-              <option value='Alta'>Alta</option>
+              <option value='BAIXA'>Baixa</option>
+              <option value='MEDIA'>Média</option>
+              <option value='ALTA'>Alta</option>
+              <option value="CRITICA">Crítica</option>{/*Feat:Adicionando a Criticidade "crítica" */}
             </select>
           </div>
 
@@ -88,7 +117,7 @@ export default function SolicitacaoManutencao() {
             />
           </div>
 
-          <button type='submit' className="btn-submit">Enviar Ordem de Serviço</button>
+          <button type='submit' className="btn-submit" disabled={loading}>{loading ? 'Enviando...' : 'Enviar Ordem de Serviço'}</button> {/*Feat:Adicionando o 'loading' de carregamento ao clicar no botão */}
         </form>
       </section>
     </main>
