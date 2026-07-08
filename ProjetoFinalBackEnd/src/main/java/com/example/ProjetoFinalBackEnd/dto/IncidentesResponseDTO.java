@@ -1,8 +1,10 @@
 package com.example.ProjetoFinalBackEnd.dto;
 
+import com.example.ProjetoFinalBackEnd.model.enums.Criticidade;
+
 public class IncidentesResponseDTO {
 
-    private String gravidade;
+    private Criticidade gravidade;
     private String dataHora;
     private String plataforma;
     private String descricao;
@@ -11,7 +13,7 @@ public class IncidentesResponseDTO {
     public IncidentesResponseDTO() {
     }
 
-    public IncidentesResponseDTO(String gravidade, String dataHora, String plataforma, String descricao, String acaoImediata) {
+    public IncidentesResponseDTO(Criticidade gravidade, String dataHora, String plataforma, String descricao, String acaoImediata) {
         this.gravidade = gravidade;
         this.dataHora = dataHora;
         this.plataforma = plataforma;
@@ -19,11 +21,11 @@ public class IncidentesResponseDTO {
         this.acaoImediata = acaoImediata;
     }
 
-    public String getGravidade() {
+    public Criticidade getGravidade() {
         return gravidade;
     }
 
-    public void setGravidade(String gravidade) {
+    public void setGravidade(Criticidade gravidade) {
         this.gravidade = gravidade;
     }
 

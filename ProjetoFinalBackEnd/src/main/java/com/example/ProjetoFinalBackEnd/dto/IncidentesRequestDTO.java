@@ -1,14 +1,15 @@
 package com.example.ProjetoFinalBackEnd.dto;
 
+import com.example.ProjetoFinalBackEnd.model.enums.Criticidade;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class IncidentesRequestDTO {
 
 
-    @NotBlank(message = "Gravidade Obrigatório ❌")
-    @Size(min=3, message = "Informe a Gravidade ❌")
-    private String gravidade;
+    @NotNull(message= "A criticidade(BAIXA, MÉDIA, ALTA) é obrigatória.")
+    private Criticidade gravidade;
 
     @NotBlank(message = "Data e Hora Obrigatórios ❌")
     @Size(min=11, message = "Informe a Data e Hora ❌")
@@ -29,7 +30,7 @@ public class IncidentesRequestDTO {
     public IncidentesRequestDTO() {
     }
 
-    public IncidentesRequestDTO(String gravidade, String dataHora, String plataforma, String descricao, String acaoImediata) {
+    public IncidentesRequestDTO(Criticidade gravidade, String dataHora, String plataforma, String descricao, String acaoImediata) {
         this.gravidade = gravidade;
         this.dataHora = dataHora;
         this.plataforma = plataforma;
@@ -37,11 +38,11 @@ public class IncidentesRequestDTO {
         this.acaoImediata = acaoImediata;
     }
 
-    public @NotBlank(message = "Gravidade Obrigatório ❌") @Size(min = 3, message = "Informe a Gravidade ❌") String getGravidade() {
+    public @NotNull(message = "A criticidade(BAIXA, MÉDIA, ALTA) é obrigatória.") Criticidade getGravidade() {
         return gravidade;
     }
 
-    public void setGravidade(@NotBlank(message = "Gravidade Obrigatório ❌") @Size(min = 3, message = "Informe a Gravidade ❌") String gravidade) {
+    public void setGravidade(@NotNull(message = "A criticidade(BAIXA, MÉDIA, ALTA) é obrigatória.") Criticidade gravidade) {
         this.gravidade = gravidade;
     }
 
