@@ -37,13 +37,13 @@ public class IncidentesService {
     }
 
     public IncidentesModel atualizar(Long id, IncidentesModel atualizarDTO){
-        String dataHora;
+        String dataHora = "";
         IncidentesModel novoCadastro = repository.findByDataHora(dataHora)
                 .orElseThrow(() -> new IllegalArgumentException("Cadastro não localizado. ❌"));
 
-        // Verifica se o  já está em uso por OUTRO funcionário
-        repository.findByEmail(atualizarDTO.getEmail()).ifPresent(funcionario -> {
-            if (!funcionario.getId().equals(id)) {
+        // Verifica se o  já está em uso por OUTRO Registro
+        repository.findByDataHora(atualizarDTO.getDataHora()).ifPresent(incidentes -> {
+            if (!incidentes.getId().equals(dataHora)) {
                 throw new RuntimeException("Funcionário já Cadastrado. ❌");
             }
         });
