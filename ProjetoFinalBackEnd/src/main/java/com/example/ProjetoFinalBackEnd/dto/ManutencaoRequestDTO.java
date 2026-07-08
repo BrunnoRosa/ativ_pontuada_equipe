@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class ManutencaoRequestDTO {
 
     @NotBlank(message= "Campo ID do equipamento é obrigatório.")
-    private Long equipamentoId;
+    private String equipamentoId;
 
     @NotNull(message= "A criticidade(BAIXA, MÉDIA, ALTA) é obrigatória.")
     private Criticidade criticidade;
@@ -19,7 +19,7 @@ public class ManutencaoRequestDTO {
     public ManutencaoRequestDTO() {
     }
 
-    public ManutencaoRequestDTO(@NotBlank(message = "Campo ID do equipamento é obrigatório.") Long equipamentoId,
+    public ManutencaoRequestDTO(@NotBlank(message = "Campo ID do equipamento é obrigatório.") String equipamentoId,
             @NotNull(message = "A criticidade(BAIXA, MÉDIA, ALTA) é obrigatória.") Criticidade criticidade,
             @NotBlank(message = "A descrição da falha não pode ser vazia.") String descricaoFalha) {
         this.equipamentoId = equipamentoId;
@@ -27,11 +27,11 @@ public class ManutencaoRequestDTO {
         this.descricaoFalha = descricaoFalha;
     }
 
-    public Long getEquipamentoId() {
+    public String getEquipamentoId() {
         return equipamentoId;
     }
 
-    public void setEquipamentoId(Long equipamentoId) {
+    public void setEquipamentoId(String equipamentoId) {
         this.equipamentoId = equipamentoId;
     }
 
