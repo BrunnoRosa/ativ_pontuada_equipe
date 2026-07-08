@@ -12,10 +12,10 @@ import RegistroIncidentes from './pages/RegistroIncidentes';
 import MonitoramentoProducao from './pages/MonitoramentoProducao';
 
 // Páginas da sua DUPLA (Criamos componentes temporários aqui para o código não quebrar)
-const QuemSomos = () => <div style={{ padding: '40px' }}><h2>Página Quem Somos (Dupla)</h2></div>;
-const SolicitacaoManutencao = () => <div style={{ padding: '40px' }}><h2>Página Solicitação de Manutenção (Dupla)</h2></div>;
-const EscalaTripulacao = () => <div style={{ padding: '40px' }}><h2>Página Escala de Tripulação (Dupla)</h2></div>;
-const ContatoEmergencia = () => <div style={{ padding: '40px' }}><h2>Página Contato de Emergência (Dupla)</h2></div>;
+const QuemSomos = () => <div style={{ padding: '40px' }}><h2>Página Quem Somos</h2></div>;
+const SolicitacaoManutencao = () => <div style={{ padding: '40px' }}><h2>Página Solicitação de Manutenção</h2></div>;
+const EscalaTripulacao = () => <div style={{ padding: '40px' }}><h2>Página Escala de Tripulação</h2></div>;
+const ContatoEmergencia = () => <div style={{ padding: '40px' }}><h2>Página Contato de Emergência</h2></div>;
 
 export default function App() {
   return (
