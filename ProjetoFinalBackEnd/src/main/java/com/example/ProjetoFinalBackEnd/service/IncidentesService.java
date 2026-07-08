@@ -4,6 +4,7 @@ import com.example.ProjetoFinalBackEnd.dto.IncidentesRequestDTO;
 import com.example.ProjetoFinalBackEnd.dto.IncidentesResponseDTO;
 import com.example.ProjetoFinalBackEnd.model.IncidentesModel;
 import com.example.ProjetoFinalBackEnd.repository.IncidentesRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class IncidentesService {
     private IncidentesRepository repository;
 
     public List<IncidentesResponseDTO> listar(){
-        return repository.findAll().stream().map(incidente -> new IncidentesResponseDTO(incidente.getGravidade(), incidente.getDataHora(), incidente.getPlataforma(), incidente.getDescricao(), incidente.getAcaoImediata())).toList();
+        return repository.findAll().stream().map(incidente -> new IncidentesResponseDTO(incidente.getGravidade(), incidente.getDataHora(), incidente.getPlataforma(), incidente.getDescricao(), incidente
+                .getAcaoImediata())).toList();
     }
 
     public IncidentesModel salvar(IncidentesRequestDTO salvarDTO){
@@ -36,7 +38,7 @@ public class IncidentesService {
         return repository.save(novoCadastro);
     }
 
-    public IncidentesModel atualizar(Long id, IncidentesModel atualizarDTO){
+    public IncidentesModel atualizar(Long id, @Valid IncidentesRequestDTO atualizarDTO){
         IncidentesModel novoCadastro = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Incidente não localizado. ❌"));
 
