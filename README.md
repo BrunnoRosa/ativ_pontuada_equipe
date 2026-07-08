@@ -12,7 +12,7 @@ Atividade Pontuada Final, será realizada em equipe de 5 integrantes.
 
 * **Guilherme Silva de Souza** - Dev. FrontEnd
 
-* **Michell Silva Santos** Dev. BackEnd
+* **Michell Silva Santos** - Dev. BackEnd
 
 ---
 
