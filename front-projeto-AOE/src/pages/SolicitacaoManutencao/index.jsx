@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './style.css';
+import './style.css'; // Certifique-se de que o CSS abaixo esteja neste arquivo
 
 export default function SolicitacaoManutencao() {
   // Estado para capturar todos os campos do formulário
@@ -12,6 +12,8 @@ export default function SolicitacaoManutencao() {
   // Atualiza o estado conforme o usuário digita
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Este log ajuda a provar que o React está capturando a sua digitação!
+    console.log(`Campo atualizado: ${name} -> ${value}`);
     setFormData({ ...formData, [name]: value });
   };
 

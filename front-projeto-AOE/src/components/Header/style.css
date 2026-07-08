@@ -1,12 +1,22 @@
+/* =========================================
+   Header Principal
+   ========================================= */
 .main-header {
-  background-color: #0b2545; /* Azul marinho corporativo */
+  background-color: #0e386b; /* Azul marinho corporativo */
   color: #ffffff;
-  padding: 15px 0;
+  padding: 35px 0;
+  
+  /* Borda na base do header para separar do conteúdo */
+  border-bottom: 4px solid #134074; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
+/* =========================================
+   1. Aumente o limite da caixa invisível
+   ========================================= */
 .header-container {
-  max-width: 1200px;
+  max-width: 1600px; /* AUMENTE AQUI! Teste 1400px, 1600px ou 95% */
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -14,26 +24,46 @@
   padding: 0 20px;
 }
 
+/* =========================================
+   2. Proteja a logo contra "esmagamentos"
+   ========================================= */
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  flex-shrink: 0; /* ADICIONE ISSO: Proíbe o menu de espremer a logo */
+}
+
 .logo h1 {
   font-size: 1.5rem;
-  margin: 0;
+  color: #ffffff;
+  margin: 2px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.0px;
+  white-space: nowrap; /* ADICIONE ISSO: Força o nome a ficar em uma linha */
 }
 
 .subtitle {
-  font-size: 0.8rem;
-  color: #134074;
-  background-color: #eeef20; /* Destaque sutil para "Portal Corporativo" */
-  padding: 2px 6px;
-  border-radius: 4px;
+  font-size: 0.60rem;
+  color: #ffffff;
+  background-color: #bdde2c; 
+  padding: 3px 8px;
+  border-radius: 15px;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap; /* ADICIONE ISSO: Força o Portal Corporativo a ficar em uma linha */
 }
 
+/* =========================================
+   Menu de Navegação
+   ========================================= */
 .nav-menu ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 5px; 
   margin: 0;
   padding: 0;
 }
@@ -41,11 +71,30 @@
 .nav-menu a {
   color: #eef4f8;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  transition: color 0.3s ease;
+  padding: 8px 16px; 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border-radius: 6px; 
+  transition: all 0.3s ease;
+  
+  /* Mantém os botões em formato de bloco sólido numa linha só */
+  display: inline-block; 
+  white-space: nowrap;  
+  text-align: center;    
 }
 
+/* Efeito ao passar o mouse por cima (Hover) */
 .nav-menu a:hover {
-  color: #8da9c4; /* Tom de azul mais claro no hover */
+  color: #ffffff;
+  background-color: #2772c9; /* Fica um azul um pouco mais claro */
+  border-color: #8da9c4;
+}
+
+/* O SEGREDO: Efeito quando o usuário ESTÁ na página (Active) */
+.nav-menu a.active {
+  background-color: #eeef20; /* Fundo amarelo corporativo */
+  color: #0b2545; /* Letra escura para dar leitura no fundo amarelo */
+  border-color: #eeef20;
+  font-weight: bold;
 }

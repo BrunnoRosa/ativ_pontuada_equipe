@@ -1,0 +1,92 @@
+/* =========================================
+   Página: Escala de Tripulação
+   ========================================= */
+
+.tripulacao-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tripulacao-page h2 {
+  color: #0b2545;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Estilo para o parágrafo descritivo abaixo do título */
+.tripulacao-page p {
+  color: #555555;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Container da Tabela com Scroll Horizontal para telas menores */
+.tripulacao-page .table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.tripulacao-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.tripulacao-table th {
+  background-color: #134074;
+  color: white;
+  padding: 15px;
+  font-weight: 600;
+  white-space: nowrap; /* Evita que o texto do cabeçalho quebre em duas linhas */
+}
+
+.tripulacao-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eef4f8;
+  color: #444;
+  white-space: nowrap; /* Mantém os dados da escala na mesma linha */
+}
+
+.tripulacao-table tr:hover {
+  background-color: #f8fafd; /* Destaque sutil ao passar o mouse */
+  transition: background-color 0.2s ease;
+}
+
+/* =========================================
+   Suporte ao Modo Escuro (Dark Mode)
+   ========================================= */
+@media (prefers-color-scheme: dark) {
+  .tripulacao-page .table-container {
+    background-color: var(--bg, #1f2028);
+    box-shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px;
+  }
+
+  .tripulacao-page h2 {
+    color: var(--text-h, #f3f4f6);
+  }
+
+  .tripulacao-page p {
+    color: var(--text, #9ca3af);
+  }
+
+  .tripulacao-table th {
+    background-color: #2e303a;
+    color: #f3f4f6;
+    border-bottom: 2px solid #444;
+  }
+
+  .tripulacao-table td {
+    color: #e5e4e7;
+    border-bottom-color: #2e303a;
+  }
+
+  .tripulacao-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}

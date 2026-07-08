@@ -1,11 +1,36 @@
+/* =========================================
+   1. Configuração Global (Fixação do Footer)
+   ========================================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que a página ocupe no mínimo a tela toda */
+}
+
+/* Caso você tenha uma tag <main> envolvendo o conteúdo do site, 
+   isso ajuda a empurrar o footer para baixo */
+main {
+  flex: 1; 
+}
+
+/* =========================================
+   2. Estilos do Footer
+   ========================================= */
 .main-footer {
   background-color: #0b2545;
   color: #8da9c4;
   text-align: center;
   padding: 20px 0;
-  margin-top: 40px;
   border-top: 3px solid #134074;
   font-size: 0.9rem;
+  width: 100%;
+  margin-top: auto; /* Esta é a mágica que cola o footer no final */
 }
 
 .footer-content p {
@@ -16,15 +41,4 @@
   font-size: 0.8rem;
   color: #ffffff;
   opacity: 0.7;
-}
-
-.main-footer {
-  background-color: #0b2545;
-  color: #8da9c4;
-  text-align: center;
-  padding: 20px 0;
-  margin-top: auto; /* Mude para auto para ele se apoiar perfeitamente no fundo */
-  border-top: 3px solid #134074;
-  font-size: 0.9rem;
-  width: 100%;
 }

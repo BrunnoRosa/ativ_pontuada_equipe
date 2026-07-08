@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css'; // Certifique-se de que o CSS ajustado esteja aqui ou no index.css
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -10,14 +10,15 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import RegistroIncidentes from './pages/RegistroIncidentes';
 import MonitoramentoProducao from './pages/MonitoramentoProducao';
-
-// Importando a página real que você acabou de criar
 import SolicitacaoManutencao from './pages/SolicitacaoManutencao';
+import QuemSomos from './pages/QuemSomos'; 
 
-// Páginas da sua DUPLA (Criamos componentes temporários aqui para o código não quebrar)
-const QuemSomos = () => <div style={{ padding: '40px' }}><h2>Página Quem Somos</h2></div>;
-const EscalaTripulacao = () => <div style={{ padding: '40px' }}><h2>Página Escala de Tripulação</h2></div>;
-const ContatoEmergencia = () => <div style={{ padding: '40px' }}><h2>Página Contato de Emergência</h2></div>;
+// IMPORTANDO AS PÁGINAS NOVAS DA SUA DUPLA (As versões reais agora!)
+import EscalaTripulacao from './pages/EscalaTripulacao';
+import ContatoEmergencia from './pages/ContatoEmergencia';
+
+// Nota: As funções falsas (const EscalaTripulacao e const ContatoEmergencia) 
+// foram apagadas daqui para que o React use os arquivos reais importados acima.
 
 export default function App() {
   return (
@@ -25,16 +26,17 @@ export default function App() {
       {/* O Header fica fixo no topo de todas as páginas */}
       <Header />
 
-      <main className="content-container" style={{ minHeight: '80vh', padding: '20px' }}>
+      {/* O main usa a classe flexível do CSS para empurrar o footer para o rodapé */}
+      <main className="content-container">
         <Routes>
           {/* Suas Páginas */}
           <Route path="/" element={<Home />} />
           <Route path="/incidentes" element={<RegistroIncidentes />} />
           <Route path="/producao" element={<MonitoramentoProducao />} />
-
-          {/* Páginas da sua Dupla (Rotas já configuradas) */}
           <Route path="/quem-somos" element={<QuemSomos />} />
           <Route path="/manutencao" element={<SolicitacaoManutencao />} />
+          
+          {/* As rotas agora chamam os componentes reais */}
           <Route path="/escala" element={<EscalaTripulacao />} />
           <Route path="/contato" element={<ContatoEmergencia />} />
         </Routes>

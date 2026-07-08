@@ -1,0 +1,105 @@
+/* =========================================
+   Página: Quem Somos
+   ========================================= */
+
+.quem-somos-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Cria um espaçamento uniforme entre todos os blocos */
+}
+
+/* --- Seção de Introdução (Hero) --- */
+.quem-somos-intro {
+  background-color: #134074; /* Mesmo azul do hero-section da Home */
+  color: white;
+  padding: 50px 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.quem-somos-intro h1 {
+  margin-top: 0;
+  font-size: 2.5rem;
+  color: #ffffff; /* Garante o contraste correto */
+  margin-bottom: 20px;
+}
+
+.quem-somos-intro p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* --- Cards de Conteúdo --- */
+.quem-somos-card {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #2a9d8f; /* Verde água para remeter à sustentabilidade marinha */
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.quem-somos-card:hover {
+  transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+}
+
+.quem-somos-card h2 {
+  margin-top: 0;
+  color: #0b2545; /* Azul mais escuro para os títulos */
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.quem-somos-card p {
+  color: #555555;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* =========================================
+   Suporte ao Modo Escuro (Dark Mode)
+   ========================================= */
+@media (prefers-color-scheme: dark) {
+  .quem-somos-card {
+    background-color: var(--bg, #1f2028); /* Puxa o fundo escuro do seu index.css */
+    box-shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px;
+  }
+  
+  .quem-somos-card h2 {
+    color: var(--text-h, #f3f4f6);
+  }
+  
+  .quem-somos-card p {
+    color: var(--text, #9ca3af);
+  }
+}
+
+/* =========================================
+   Responsividade (Telas Menores)
+   ========================================= */
+@media (max-width: 768px) {
+  .quem-somos-intro {
+    padding: 30px 15px;
+  }
+  
+  .quem-somos-intro h1 {
+    font-size: 2rem;
+  }
+
+  .quem-somos-card {
+    padding: 20px;
+  }
+  
+  .quem-somos-card h2 {
+    font-size: 1.3rem;
+  }
+}
