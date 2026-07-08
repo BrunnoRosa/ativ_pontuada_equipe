@@ -1,5 +1,6 @@
 package com.example.ProjetoFinalBackEnd.model;
 
+import com.example.ProjetoFinalBackEnd.model.enums.Criticidade;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,8 +11,9 @@ public class IncidentesModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(nullable = false)
-    private String gravidade;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable= false)
+    private Criticidade gravidade;
 
     @Column(nullable = false, unique = true)
     private String dataHora;
@@ -28,7 +30,7 @@ public class IncidentesModel {
     public IncidentesModel() {
     }
 
-    public IncidentesModel(Long id, String gravidade, String dataHora, String plataforma, String descricao, String acaoImediata) {
+    public IncidentesModel(Long id, Criticidade gravidade, String dataHora, String plataforma, String descricao, String acaoImediata) {
         this.id = id;
         this.gravidade = gravidade;
         this.dataHora = dataHora;
@@ -45,11 +47,11 @@ public class IncidentesModel {
         this.id = id;
     }
 
-    public String getGravidade() {
+    public Criticidade getGravidade() {
         return gravidade;
     }
 
-    public void setGravidade(String gravidade) {
+    public void setGravidade(Criticidade gravidade) {
         this.gravidade = gravidade;
     }
 
