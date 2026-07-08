@@ -1,8 +1,11 @@
 import React from 'react';
 import './style.css';
 
+// Importando a imagem diretamente da pasta assets
+// Ajuste o caminho '../..' se a sua pasta Home estiver em outro nível de profundidade
+import mapaBacias from '../../assets/mapa-bacias.png'; 
+
 export default function Home() {
-  // Exemplo de dado mockado para os indicadores (pode virar dinâmico no futuro)
   const indicadores = {
     diasSemAcidentes: 450,
     plataformasAtivas: 12,
@@ -16,7 +19,6 @@ export default function Home() {
         <p>Monitoramento, Gestão de Ativos e Segurança Offshore em Tempo Real.</p>
       </section>
 
-      {/* Grid de Indicadores de Segurança e Operação */}
       <section className="dashboard-cards">
         <div className="card hse-card">
           <h3>Indicador de Segurança</h3>
@@ -37,12 +39,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção do Mapa de Localização */}
+      {/* Seção do Mapa atualizada para receber a imagem estática */}
       <section className="map-section">
         <h3>Mapa de Localização das Plataformas Ativas</h3>
-        <div className="map-placeholder">
-          {/* Aqui futuramente pode entrar uma biblioteca de mapas ou imagem representativa das bacias */}
-          <p>[ Espaço Reservado para o Mapa das Plataformas - Bacia de Santos e Campos ]</p>
+        
+        <div className="map-wrapper">
+          <img 
+            src={mapaBacias} 
+            alt="Mapa Geológico das Bacias de Santos e Campos" 
+            className="mapa-estatico"
+          />
         </div>
       </section>
     </div>
