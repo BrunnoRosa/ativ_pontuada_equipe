@@ -17,3 +17,14 @@
   color: #ffffff;
   opacity: 0.7;
 }
+
+.main-footer {
+  background-color: #0b2545;
+  color: #8da9c4;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto; /* Mude para auto para ele se apoiar perfeitamente no fundo */
+  border-top: 3px solid #134074;
+  font-size: 0.9rem;
+  width: 100%;
+}
