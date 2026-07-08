@@ -68,8 +68,11 @@ ativ_pontuada_equipe/
     │   └── services/           # Configuração do Axios e chamadas de API
     └── package.json            # Dependências do Node.js
                                 #
-
+```
 ---
+## Dependências
+
+...
 
 
 
