@@ -1,0 +1,19 @@
+.main-footer {
+  background-color: #0b2545;
+  color: #8da9c4;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 3px solid #134074;
+  font-size: 0.9rem;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.footer-tagline {
+  font-size: 0.8rem;
+  color: #ffffff;
+  opacity: 0.7;
+}
