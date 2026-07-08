@@ -20,7 +20,7 @@ import com.example.ProjetoFinalBackEnd.service.ManutencaoService;
 
 import jakarta.validation.Valid;
 @RestController
-@RequestMapping("/manutencoes")
+@RequestMapping("api/manutencoes")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ManutencaoController {
     private final ManutencaoService service;

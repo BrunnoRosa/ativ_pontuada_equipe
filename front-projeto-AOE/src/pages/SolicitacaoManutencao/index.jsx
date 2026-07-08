@@ -51,7 +51,7 @@ export default function SolicitacaoManutencao() {
       console.log('Resposta do Spring Boot:', respostaBack);
 
       // Trocando o alert pelo toast de sucesso
-      toast.success(`Ordem de serviço n° ${respostaBack.id || ''} registrada com sucesso no banco de dados!`);
+      toast.success(`Ordem de serviço n° ${respostaBack.id || ''} registrada com sucesso`);
 
       setFormData({
         equipamentoId: '',
