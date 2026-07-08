@@ -17,4 +17,11 @@ export const criarOrdemServico = async(dadosManutencao) => {
     return response.data;
 }
 
+// Função para criar o incidente
+export const criarIncidente = async (dadosIncidente) => {
+    const response = await api.post('/incidentes', dadosIncidente);
+    return response.data;
+
+}
+
 export default api;
