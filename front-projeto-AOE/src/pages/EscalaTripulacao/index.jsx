@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { listarTripulacao } from '../../services';
 import './style.css';
 
 export default function EscalaTripulacao() {
   // Estado que armazenará os dados vindos da API
   const [tripulacao, setTripulacao] = useState([]);
 
-  // Consome a API ao carregar a página
+  // Consome a API usando Axios ao carregar a página
   useEffect(() => {
-    fetch('http://localhost:8080/api/tripulacao')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Erro ao buscar os dados da API.');
-        }
-        return response.json();
-      })
+    listarTripulacao()
       .then((data) => {
+        // O Axios já trata a resposta e nos entrega o JSON diretamente no 'data'
         setTripulacao(data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Erro ao buscar os dados da tripulação via Axios:', error);
       });
   }, []);
 

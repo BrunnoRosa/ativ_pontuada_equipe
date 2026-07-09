@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//Criação da instância centralizada do Axios
-
+// Criação da instância centralizada do Axios
 const api = axios.create({
     baseURL: 'http://localhost:8080/api',
     headers: {
@@ -9,11 +8,9 @@ const api = axios.create({
     }
 });
 
-//Função para chamar especificamente a rota de manutenção
-
-export const criarOrdemServico = async(dadosManutencao) => {
+// Função para chamar especificamente a rota de manutenção
+export const criarOrdemServico = async (dadosManutencao) => {
     const response = await api.post('/manutencoes', dadosManutencao);
-
     return response.data;
 }
 
@@ -21,7 +18,12 @@ export const criarOrdemServico = async(dadosManutencao) => {
 export const criarIncidente = async (dadosIncidente) => {
     const response = await api.post('/incidentes', dadosIncidente);
     return response.data;
+}
 
+// Nova Função: Buscar a listagem da tripulação (Método GET)
+export const listarTripulacao = async () => {
+    const response = await api.get('/tripulacao');
+    return response.data;
 }
 
 export default api;
