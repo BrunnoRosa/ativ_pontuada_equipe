@@ -72,6 +72,24 @@ ativ_pontuada_equipe/
 ---
 ## Como Subir o Sistema
 
+### 💻 Rodando o Back-end:
+
+🛠️ Tecnologias Utilizadas
+
+Java 17 / Spring Boot 3.x
+Spring Data JPA / Spring Web
+Docker e H2 (Ambiente de Banco de Dados)
+ReactJS / Vite
+Axios
+[CSS Modules / Tailwind CSS]
+🚀 Como Executar o Projeto
+
+Clonar e preparar o ambiente: Clone o repositório: git clone https://github.com/BrunnoRosa/ativ_pontuada.equipe.git Entre na pasta do projeto: cd ativ_tech_nexus
+
+Executar o Back-end & Banco de Dados: Inicie o banco de dados no Docker: docker-compose up -d Entre na pasta do back-end: cd backend Instale as dependências e compile: ./mvnw clean install Inicie a API Spring Boot: ./mvnw spring-boot:run
+
+Executar o Front-end: Abra um novo terminal e entre na pasta do front-end: cd frontend Instale as dependências: npm install Instale as dependências: npm install react-router-dom Instale as dependências: npm install axios react-toastify Inicie o servidor de desenvolvimento: npm run dev
+
 ### 💻 Rodando o Front-end:
 
 ### Pré-requisitos
