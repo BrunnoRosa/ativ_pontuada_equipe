@@ -1,4 +1,4 @@
-INSERT INTO tb_producao_diaria (plataforma, petroleo_barris, gas_metros_cubicos, meta_atingida)
+INSERT INTO tab_producao_diaria (plataforma, petroleo_barris, gas_metros_cubicos, meta_atingida)
 VALUES 
 ('P-74 (Búzios)', 150000, 4500000, true),
 ('P-68 (Lula)', 120000, 3800000, true),
