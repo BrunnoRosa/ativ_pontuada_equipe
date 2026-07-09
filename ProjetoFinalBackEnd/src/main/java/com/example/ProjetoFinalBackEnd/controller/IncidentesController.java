@@ -12,17 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-<<<<<<< HEAD
-@RequestMapping("/incidentes")
-=======
-<<<<<<< HEAD
-@RequestMapping("/api/incidentes")
-=======
+
 @RequestMapping("api/incidentes")
->>>>>>> e4b305826f0de7a478c246b50ae0c7814a65fe62
-//@CrossOrigin(origins = "http://localhost:5173")
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
->>>>>>> 912992bad4014493dff168102ae480bc31f4688f
+
 public class IncidentesController {
 
     @Autowired
