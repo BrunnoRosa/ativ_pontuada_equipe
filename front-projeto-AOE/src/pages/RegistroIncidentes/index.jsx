@@ -67,20 +67,23 @@ export default function RegistroIncidentes() {
 
     setLoading(true);
 
+    // ======================================================================
+    // ADEQUAÇÃO PARA O NOVO DTO (dataSolicitacao + Formato LocalDateTime)
+    // ======================================================================
     const dadosParaOBack = {
       gravidade: formData.gravidade,
-      dataHora: `${formData.data} ${formData.hora}`, 
+      // Mudou de dataHora para dataSolicitacao e adicionou o "T" com segundos ":00"
+      dataSolicitacao: `${formData.data}T${formData.hora}:00`, 
       plataforma: formData.plataforma,
       descricao: formData.descricao,
       acaoImediata: formData.acoesImediatas
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/api/incidentes', dadosParaOBack);
+      // Enviando para o endpoint do seu novo Controller
+      await axios.post('http://localhost:8080/api/incidentes', dadosParaOBack);
       
-      // ALTERAÇÃO AQUI: Como o novo Controller devolve o objeto criado (DTO), 
-      // nós criamos a mensagem no Front e podemos até exibir o ID retornado!
-      toast.success(`Incidente registrado com sucesso!`);
+      toast.success(`Incidente registrado com sucesso! ✅`);
       
       setFormData({
         gravidade: 'BAIXA',
