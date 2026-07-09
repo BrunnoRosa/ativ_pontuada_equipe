@@ -72,7 +72,34 @@ ativ_pontuada_equipe/
 ---
 ## Como Subir o Sistema
 
-...
+### 💻 Rodando o Front-end:
+
+### Pré-requisitos
+Antes de começar, certifique-se de ter o [Node.js](https://nodejs.org/) instalado na sua máquina.
+
+### Passo a passo
+
+1. Pelo terminal, navegue até a pasta do front-end do projeto:
+```bash
+   cd front-projeto-AOE
+```
+
+2. Instale todas as dependências do projeto:
+```bash
+    npm i react-router-dom axios react-toastify yup react-hook-form @hookform/resolvers
+    npm i
+```
+
+3. Inicie o servidor de desenvolvimento:
+```bash
+    npm run dev
+```
+
+4. Inicie o servidor de desenvolvimento:
+
+
+    Abra o seu navegador e acesse http://localhost:5174
+
 
 
 

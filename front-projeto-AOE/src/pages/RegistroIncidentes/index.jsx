@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-// Feat: Importando o Toastify e o CSS dele
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'; 
 
 import './style.css';
 
 export default function RegistroIncidentes() {
-  // Estado para capturar todos os campos do formulário exigidos no escopo
   const [formData, setFormData] = useState({
-    gravidade: 'Baixa',
+    gravidade: 'BAIXA', 
     data: '',
     hora: '',
     plataforma: '',
@@ -16,8 +15,30 @@ export default function RegistroIncidentes() {
     acoesImediatas: ''
   });
 
-  // Feat: Estado para gerenciar o botão de carregamento
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    preencherDataHoraAtual();
+  }, []);
+
+  const preencherDataHoraAtual = () => {
+    const agora = new Date();
+    
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const dataAtual = `${ano}-${mes}-${dia}`;
+
+    const horas = String(agora.getHours()).padStart(2, '0');
+    const minutos = String(agora.getMinutes()).padStart(2, '0');
+    const horaAtual = `${horas}:${minutos}`;
+
+    setFormData(prev => ({
+      ...prev,
+      data: dataAtual,
+      hora: horaAtual
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,51 +48,42 @@ export default function RegistroIncidentes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // ==========================================
-    // VALIDAÇÕES MANUAIS COM TOASTIFY
-    // ==========================================
     if (!formData.plataforma.trim()) {
       toast.warning('O nome da plataforma é obrigatório!');
       return;
     }
-
-    if (!formData.data) {
-      toast.warning('A data do ocorrido é obrigatória!');
+    if (!formData.data || !formData.hora) {
+      toast.warning('A data e a hora do ocorrido são obrigatórias!');
       return;
     }
-
-    if (!formData.hora) {
-      toast.warning('A hora do ocorrido é obrigatória!');
-      return;
-    }
-
     if (!formData.descricao.trim()) {
       toast.warning('A descrição detalhada do fato é obrigatória!');
       return;
     }
-
     if (!formData.acoesImediatas.trim()) {
       toast.warning('As ações imediatas tomadas são obrigatórias!');
       return;
     }
-    // ==========================================
 
-    console.log('Enviando dados via POST para o Spring Boot:', formData);
     setLoading(true);
 
+    const dadosParaOBack = {
+      gravidade: formData.gravidade,
+      dataHora: `${formData.data} ${formData.hora}`, 
+      plataforma: formData.plataforma,
+      descricao: formData.descricao,
+      acaoImediata: formData.acoesImediatas
+    };
+
     try {
-      // Aqui entrará o fetch/axios para enviar ao Backend
-      // ex: await axios.post('http://localhost:8080/api/incidentes', formData)
+      const response = await axios.post('http://localhost:8080/api/incidentes', dadosParaOBack);
       
-      // Simulando um tempo de resposta do servidor (remova quando integrar com o backend real)
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // ALTERAÇÃO AQUI: Como o novo Controller devolve o objeto criado (DTO), 
+      // nós criamos a mensagem no Front e podemos até exibir o ID retornado!
+      toast.success(`Incidente registrado com sucesso!`);
       
-      // Trocando o alert() pelo Toast de Sucesso
-      toast.success('Incidente registrado com sucesso');
-      
-      // Limpa o formulário após o envio
       setFormData({
-        gravidade: 'Baixa',
+        gravidade: 'BAIXA',
         data: '',
         hora: '',
         plataforma: '',
@@ -79,9 +91,16 @@ export default function RegistroIncidentes() {
         acoesImediatas: ''
       });
       
+      preencherDataHoraAtual(); 
+      
     } catch (error) {
-      console.error('Erro ao salvar o incidente:', error);
-      toast.error('Erro ao conectar com o servidor para salvar o registro.');
+      console.error('Erro na integração:', error);
+      
+      if (error.response && error.response.data) {
+        toast.error('Erro de validação no servidor. Verifique os dados inseridos.');
+      } else {
+        toast.error('Não foi possível conectar ao servidor Spring Boot.');
+      }
     } finally {
       setLoading(false);
     }
@@ -89,13 +108,11 @@ export default function RegistroIncidentes() {
 
   return (
     <div className="incidentes-page">
-      {/* Container obrigatório para exibir as notificações */}
       <ToastContainer position="top-right" autoClose={4000} theme="colored" />
 
       <h2>Registro de Incidentes Operacionais (HSE)</h2>
       <p>Formulário crítico para reporte imediato de anomalias ou acidentes em plataformas offshore.</p>
 
-      {/* noValidate impede o navegador de mostrar aquelas bolhas nativas brancas de erro */}
       <form onSubmit={handleSubmit} className="form-incidente" noValidate>
         <div className="form-group">
           <label htmlFor="plataforma">Plataforma:</label>
@@ -141,10 +158,10 @@ export default function RegistroIncidentes() {
             value={formData.gravidade} 
             onChange={handleChange}
           >
-            <option value="Baixa">Baixa (Anomalia Operacional)</option>
-            <option value="Média">Média (Incidente sem Afastamento)</option>
-            <option value="Alta">Alta (Acidente com Afastamento / Impacto Ambiental)</option>
-            <option value="Crítica">Crítica (Emergência Geral)</option>
+            <option value="BAIXA">Baixa (Anomalia Operacional)</option>
+            <option value="MEDIA">Média (Incidente sem Afastamento)</option>
+            <option value="ALTA">Alta (Acidente com Afastamento)</option>
+            <option value="CRITICA">Crítica (Emergência Geral)</option>
           </select>
         </div>
 
@@ -173,7 +190,7 @@ export default function RegistroIncidentes() {
         </div>
 
         <button type="submit" className="btn-submit" disabled={loading}>
-          {loading ? 'Enviando...' : 'Enviar Relatório HSE'}
+          {loading ? 'Enviando ao servidor...' : 'Enviar Relatório HSE'}
         </button>
       </form>
     </div>
