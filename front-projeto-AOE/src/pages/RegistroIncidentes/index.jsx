@@ -6,9 +6,8 @@ import axios from 'axios';
 import './style.css';
 
 export default function RegistroIncidentes() {
-  // Mantendo o estado com 'data' e 'hora' separados para facilitar a exibição visual nos inputs
   const [formData, setFormData] = useState({
-    gravidade: 'BAIXA', // Inicializado em maiúsculo para bater com o Enum Criticidade do seu Back
+    gravidade: 'BAIXA', 
     data: '',
     hora: '',
     plataforma: '',
@@ -18,7 +17,6 @@ export default function RegistroIncidentes() {
 
   const [loading, setLoading] = useState(false);
 
-  // AUTOMAÇÃO: Preenche os inputs de Data e Hora assim que o componente carrega na tela
   useEffect(() => {
     preencherDataHoraAtual();
   }, []);
@@ -26,13 +24,11 @@ export default function RegistroIncidentes() {
   const preencherDataHoraAtual = () => {
     const agora = new Date();
     
-    // Captura a data local no formato YYYY-MM-DD
     const ano = agora.getFullYear();
     const mes = String(agora.getMonth() + 1).padStart(2, '0');
     const dia = String(agora.getDate()).padStart(2, '0');
     const dataAtual = `${ano}-${mes}-${dia}`;
 
-    // Captura a hora local no formato HH:MM
     const horas = String(agora.getHours()).padStart(2, '0');
     const minutos = String(agora.getMinutes()).padStart(2, '0');
     const horaAtual = `${horas}:${minutos}`;
@@ -52,17 +48,12 @@ export default function RegistroIncidentes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validando os campos locais do formulário
     if (!formData.plataforma.trim()) {
       toast.warning('O nome da plataforma é obrigatório!');
       return;
     }
-    if (!formData.data) {
-      toast.warning('A data do ocorrido é obrigatória!');
-      return;
-    }
-    if (!formData.hora) {
-      toast.warning('A hora do ocorrido é obrigatória!');
+    if (!formData.data || !formData.hora) {
+      toast.warning('A data e a hora do ocorrido são obrigatórias!');
       return;
     }
     if (!formData.descricao.trim()) {
@@ -76,25 +67,21 @@ export default function RegistroIncidentes() {
 
     setLoading(true);
 
-    // ======================================================================
-    // MONTAGEM DO OBJETO ADAPTADO PARA O SEU BACK-END (IncidentesRequestDTO)
-    // ======================================================================
     const dadosParaOBack = {
-      gravidade: formData.gravidade, // Vai enviar como string ex: "BAIXA", "MEDIA", "ALTA", "CRITICA"
-      dataHora: `${formData.data} ${formData.hora}`, // Junta as variáveis do Front. Ex final: "2026-07-08 21:00" (16 caracteres, cumpre o min=11)
+      gravidade: formData.gravidade,
+      dataHora: `${formData.data} ${formData.hora}`, 
       plataforma: formData.plataforma,
       descricao: formData.descricao,
-      acaoImediata: formData.acoesImediatas // Mapeado para 'acaoImediata' (no singular) conforme seu DTO
+      acaoImediata: formData.acoesImediatas
     };
 
     try {
-      // Enviando os dados formatados para o seu endpoint existente
       const response = await axios.post('http://localhost:8080/api/incidentes', dadosParaOBack);
       
-      // Captura a mensagem de sucesso mapeada no seu ResponseEntity (Map.of("Mensagem", "..."))
-      toast.success(response.data.Mensagem || 'Registro Realizado com Sucesso. ✅');
+      // ALTERAÇÃO AQUI: Como o novo Controller devolve o objeto criado (DTO), 
+      // nós criamos a mensagem no Front e podemos até exibir o ID retornado!
+      toast.success(`Incidente registrado com sucesso!`);
       
-      // Reseta o formulário limpando os textos digitados
       setFormData({
         gravidade: 'BAIXA',
         data: '',
@@ -104,13 +91,11 @@ export default function RegistroIncidentes() {
         acoesImediatas: ''
       });
       
-      // Roda a automação novamente para que a data/hora fiquem prontas para o próximo registro
       preencherDataHoraAtual(); 
       
     } catch (error) {
       console.error('Erro na integração:', error);
       
-      // Caso o seu Back-End recuse por alguma validação do @Valid (ex: tamanho menor que o esperado)
       if (error.response && error.response.data) {
         toast.error('Erro de validação no servidor. Verifique os dados inseridos.');
       } else {
@@ -173,7 +158,6 @@ export default function RegistroIncidentes() {
             value={formData.gravidade} 
             onChange={handleChange}
           >
-            {/* Opções configuradas exatamente com as strings esperadas pelo Enum Criticidade do Back */}
             <option value="BAIXA">Baixa (Anomalia Operacional)</option>
             <option value="MEDIA">Média (Incidente sem Afastamento)</option>
             <option value="ALTA">Alta (Acidente com Afastamento)</option>
