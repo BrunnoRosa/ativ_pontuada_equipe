@@ -104,7 +104,7 @@ export default function SolicitacaoManutencao() {
 
       // Trocando o alert pelo toast de sucesso
 
-      toast.success(`Ordem de serviço n° ${respostaBack.id || ''} registrada com sucesso no banco de dados!`);
+      toast.success(`Ordem de serviço n° ${respostaBack.id || ''} registrada com sucesso!`);
 
 
 
@@ -132,7 +132,7 @@ export default function SolicitacaoManutencao() {
 
       else if (error.request) {
 
-        toast.error('Não foi possível alcançar o servidor. Verifique se o Back-End está rodando na porta 8080.');
+        toast.error('Não foi possível completar a ação, por favor tente novamente.');
 
       }
 
