@@ -26,4 +26,11 @@ export const listarTripulacao = async () => {
     return response.data;
 }
 
+// Função para buscar a lista de produção diária
+export const obterProducaoDiaria = async () => {
+    const response = await api.get('/producao');
+    return response.data;
+};
+
+
 export default api;
