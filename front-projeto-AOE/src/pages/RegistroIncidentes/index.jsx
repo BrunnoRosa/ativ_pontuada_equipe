@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-// Feat: Importando o Toastify e o CSS dele
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'; 
 
 import './style.css';
 
 export default function RegistroIncidentes() {
-  // Estado para capturar todos os campos do formulário exigidos no escopo
+  // Mantendo o estado com 'data' e 'hora' separados para facilitar a exibição visual nos inputs
   const [formData, setFormData] = useState({
-    gravidade: 'Baixa',
+    gravidade: 'BAIXA', // Inicializado em maiúsculo para bater com o Enum Criticidade do seu Back
     data: '',
     hora: '',
     plataforma: '',
@@ -16,8 +16,33 @@ export default function RegistroIncidentes() {
     acoesImediatas: ''
   });
 
-  // Feat: Estado para gerenciar o botão de carregamento
   const [loading, setLoading] = useState(false);
+
+  // AUTOMAÇÃO: Preenche os inputs de Data e Hora assim que o componente carrega na tela
+  useEffect(() => {
+    preencherDataHoraAtual();
+  }, []);
+
+  const preencherDataHoraAtual = () => {
+    const agora = new Date();
+    
+    // Captura a data local no formato YYYY-MM-DD
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const dataAtual = `${ano}-${mes}-${dia}`;
+
+    // Captura a hora local no formato HH:MM
+    const horas = String(agora.getHours()).padStart(2, '0');
+    const minutos = String(agora.getMinutes()).padStart(2, '0');
+    const horaAtual = `${horas}:${minutos}`;
+
+    setFormData(prev => ({
+      ...prev,
+      data: dataAtual,
+      hora: horaAtual
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,51 +52,51 @@ export default function RegistroIncidentes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // ==========================================
-    // VALIDAÇÕES MANUAIS COM TOASTIFY
-    // ==========================================
+    // Validando os campos locais do formulário
     if (!formData.plataforma.trim()) {
       toast.warning('O nome da plataforma é obrigatório!');
       return;
     }
-
     if (!formData.data) {
       toast.warning('A data do ocorrido é obrigatória!');
       return;
     }
-
     if (!formData.hora) {
       toast.warning('A hora do ocorrido é obrigatória!');
       return;
     }
-
     if (!formData.descricao.trim()) {
       toast.warning('A descrição detalhada do fato é obrigatória!');
       return;
     }
-
     if (!formData.acoesImediatas.trim()) {
       toast.warning('As ações imediatas tomadas são obrigatórias!');
       return;
     }
-    // ==========================================
 
-    console.log('Enviando dados via POST para o Spring Boot:', formData);
     setLoading(true);
 
+    // ======================================================================
+    // MONTAGEM DO OBJETO ADAPTADO PARA O SEU BACK-END (IncidentesRequestDTO)
+    // ======================================================================
+    const dadosParaOBack = {
+      gravidade: formData.gravidade, // Vai enviar como string ex: "BAIXA", "MEDIA", "ALTA", "CRITICA"
+      dataHora: `${formData.data} ${formData.hora}`, // Junta as variáveis do Front. Ex final: "2026-07-08 21:00" (16 caracteres, cumpre o min=11)
+      plataforma: formData.plataforma,
+      descricao: formData.descricao,
+      acaoImediata: formData.acoesImediatas // Mapeado para 'acaoImediata' (no singular) conforme seu DTO
+    };
+
     try {
-      // Aqui entrará o fetch/axios para enviar ao Backend
-      // ex: await axios.post('http://localhost:8080/api/incidentes', formData)
+      // Enviando os dados formatados para o seu endpoint existente
+      const response = await axios.post('http://localhost:8080/api/incidentes', dadosParaOBack);
       
-      // Simulando um tempo de resposta do servidor (remova quando integrar com o backend real)
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Captura a mensagem de sucesso mapeada no seu ResponseEntity (Map.of("Mensagem", "..."))
+      toast.success(response.data.Mensagem || 'Registro Realizado com Sucesso. ✅');
       
-      // Trocando o alert() pelo Toast de Sucesso
-      toast.success('Incidente registrado com sucesso');
-      
-      // Limpa o formulário após o envio
+      // Reseta o formulário limpando os textos digitados
       setFormData({
-        gravidade: 'Baixa',
+        gravidade: 'BAIXA',
         data: '',
         hora: '',
         plataforma: '',
@@ -79,9 +104,18 @@ export default function RegistroIncidentes() {
         acoesImediatas: ''
       });
       
+      // Roda a automação novamente para que a data/hora fiquem prontas para o próximo registro
+      preencherDataHoraAtual(); 
+      
     } catch (error) {
-      console.error('Erro ao salvar o incidente:', error);
-      toast.error('Erro ao conectar com o servidor para salvar o registro.');
+      console.error('Erro na integração:', error);
+      
+      // Caso o seu Back-End recuse por alguma validação do @Valid (ex: tamanho menor que o esperado)
+      if (error.response && error.response.data) {
+        toast.error('Erro de validação no servidor. Verifique os dados inseridos.');
+      } else {
+        toast.error('Não foi possível conectar ao servidor Spring Boot.');
+      }
     } finally {
       setLoading(false);
     }
@@ -89,13 +123,11 @@ export default function RegistroIncidentes() {
 
   return (
     <div className="incidentes-page">
-      {/* Container obrigatório para exibir as notificações */}
       <ToastContainer position="top-right" autoClose={4000} theme="colored" />
 
       <h2>Registro de Incidentes Operacionais (HSE)</h2>
       <p>Formulário crítico para reporte imediato de anomalias ou acidentes em plataformas offshore.</p>
 
-      {/* noValidate impede o navegador de mostrar aquelas bolhas nativas brancas de erro */}
       <form onSubmit={handleSubmit} className="form-incidente" noValidate>
         <div className="form-group">
           <label htmlFor="plataforma">Plataforma:</label>
@@ -141,10 +173,11 @@ export default function RegistroIncidentes() {
             value={formData.gravidade} 
             onChange={handleChange}
           >
-            <option value="Baixa">Baixa (Anomalia Operacional)</option>
-            <option value="Média">Média (Incidente sem Afastamento)</option>
-            <option value="Alta">Alta (Acidente com Afastamento / Impacto Ambiental)</option>
-            <option value="Crítica">Crítica (Emergência Geral)</option>
+            {/* Opções configuradas exatamente com as strings esperadas pelo Enum Criticidade do Back */}
+            <option value="BAIXA">Baixa (Anomalia Operacional)</option>
+            <option value="MEDIA">Média (Incidente sem Afastamento)</option>
+            <option value="ALTA">Alta (Acidente com Afastamento)</option>
+            <option value="CRITICA">Crítica (Emergência Geral)</option>
           </select>
         </div>
 
@@ -173,7 +206,7 @@ export default function RegistroIncidentes() {
         </div>
 
         <button type="submit" className="btn-submit" disabled={loading}>
-          {loading ? 'Enviando...' : 'Enviar Relatório HSE'}
+          {loading ? 'Enviando ao servidor...' : 'Enviar Relatório HSE'}
         </button>
       </form>
     </div>
