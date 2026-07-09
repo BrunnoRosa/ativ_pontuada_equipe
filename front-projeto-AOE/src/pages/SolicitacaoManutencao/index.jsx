@@ -121,26 +121,29 @@ export default function SolicitacaoManutencao() {
 
 
     } catch(error) {
-
-      // Mantendo a sua excelente lógica de tratamento de erros, mas usando Toast
-
+      console.group('❌ [DEBUG ERRO MANUTENÇÃO]');
+      
       if (error.response) {
-
+        // O servidor respondeu, mas com status de erro (400, 404, 500)
+        console.error('Status do Servidor:', error.response.status);
+        console.error('Resposta do Servidor:', error.response.data);
         toast.error(`Erro do Servidor (${error.response.status}): ${error.response.data?.message || 'Dados inválidos'}`);
-
-      }
-
+      } 
       else if (error.request) {
-
-        toast.error('Não foi possível completar a ação, por favor tente novamente.');
-
-      }
-
+        // A requisição foi enviada mas ninguém respondeu (ERR_CONNECTION_REFUSED)
+        console.error('Falha de Conexão: Nenhuma resposta recebida.');
+        console.error('URL Tentada:', error.config?.url);
+        console.error('Base URL:', error.config?.baseURL);
+        
+        toast.error('Servidor desconectado! Verifique se o Back-End (Spring Boot) está rodando na porta 8080.');
+      } 
       else {
-
+        // Erro na montagem da requisição no JavaScript
+        console.error('Erro de Configuração:', error.message);
         toast.error(`Erro na requisição: ${error.message}`);
-
       }
+      
+      console.groupEnd();
 
     } finally {
 
